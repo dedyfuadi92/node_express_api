@@ -14,7 +14,7 @@ const router = express.Router();
         age: 24
     }
 ] */
-const users = [];
+let users = [];
 router.get('/', (req, res) => {
     // console.log(users);
     /* res.send('Hello this is a users page generate by routes'); */
@@ -39,5 +39,10 @@ router.get('/:id', (req, res) => {
     // res.send('THE GET ID ROUTE');
     // res.send(req.params);
     res.send(foundUser);
+});
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    users = users.filter((user) => user.id !== id);
+    res.send(`User with id ${id} has been deleted from the array`);
 });
 export default router;
