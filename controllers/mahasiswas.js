@@ -51,18 +51,23 @@ export const deleteOneMahasiswa = (req, res) => {
         }
     });
 };
-/* export const updateOneUser = (req, res) => {
-    const { id } = req.params;
-    const { firstName, lastName, age } = req.body;
-    const user = users.find((user) => user.id === id);
-    if (firstName) {
-        user.firstName = firstName;
-    }
-    if (lastName) {
-        user.lastName = lastName;
-    }
-    if (age) {
-        user.age = age;
-    }
-    res.send(`User with id ${id} has been updated`);
-}; */
+export const updateOneMahasiswa = (req, res) => {
+    const { id_mahasiswa } = req.params;
+    const { nim, nama, jurusan } = req.body;
+    mahasiswas = conn.query(`SELECT * FROM mahasiswa where nim="${id_mahasiswa}"`, function (err, result, fields) {
+        if (err) {
+            console.log(err);
+        } else {
+            // ok(result, res);
+            console.log('Berhasil ambil data ter-filter yang akan diubah');
+            conn.query(`update mahasiswa set nim="${nim}",nama="${nama}",jurusan="${jurusan}" where id_mahasiswa="${id_mahasiswa}"`, function (err, result, fields) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    ok(`Berhasil update data dengan id_mahasiswa ${id_mahasiswa}`, res);
+                    console.log(`Berhasil update data dengan id_mahasiswa ${id_mahasiswa}`);
+                }
+            });
+        }
+    });
+};
