@@ -31,8 +31,6 @@ export const createMahasiswa = (req, res) => {
 };
 export const getOneMahasiswa = (req, res) => {
     const { nim } = req.params;
-    // const foundUser = users.find((user) => user.id === id);
-    // res.send(foundUser);
     mahasiswas = conn.query(`SELECT * FROM mahasiswa where nim="${nim}"`, function (err, result, fields) {
         if (err) {
             conn.log(err);
@@ -42,12 +40,18 @@ export const getOneMahasiswa = (req, res) => {
         }
     });
 };
-/* export const deleteOneUser = (req, res) => {
-    const { id } = req.params;
-    users = users.filter((user) => user.id !== id);
-    res.send(`User with id ${id} has been deleted from the array`);
+export const deleteOneMahasiswa = (req, res) => {
+    const { id_mahasiswa } = req.params;
+    mahasiswas = conn.query(`delete FROM mahasiswa where id_mahasiswa="${id_mahasiswa}"`, function (err, result, fields) {
+        if (err) {
+            conn.log(err);
+        } else {
+            ok(`Berhasil hapus data dengan id_mahasiswa ${id_mahasiswa}`, res);
+            console.log('Berhasil hapus data');
+        }
+    });
 };
-export const updateOneUser = (req, res) => {
+/* export const updateOneUser = (req, res) => {
     const { id } = req.params;
     const { firstName, lastName, age } = req.body;
     const user = users.find((user) => user.id === id);
